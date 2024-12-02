@@ -5,7 +5,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 from math import pow
+import os
+import uvicorn
 
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))  # Por defecto usa el puerto 8000 si no está definido
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
 
 app = FastAPI()
 

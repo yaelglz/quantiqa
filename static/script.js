@@ -6,7 +6,7 @@ async function setInitialBalance() {
     // Verifica si se ha ingresado un balance
     if (balanceInput) {
         // Realiza una solicitud POST para establecer el balance inicial
-        const response = await fetch("http://127.0.0.1:8000/initial_balance/", {
+        const response = await fetch("https://quantiqa.onrender.com/initial_balance/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -36,7 +36,7 @@ async function addTransaction() {
     // Verifica que se hayan ingresado la descripción y el monto
     if (description && amount) {
         // Realiza una solicitud POST para agregar la transacción
-        const response = await fetch("http://127.0.0.1:8000/transactions/", {
+        const response = await fetch("https://quantiqa.onrender.com/transactions/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function sortTransactions() {
 async function getTransactions(sortBy = "default") {
     console.log("Fetching transactions with sortBy:", sortBy);
     try {
-        const response = await fetch(`http://127.0.0.1:8000/transactions/?sort=${sortBy}`);
+        const response = await fetch(`https://quantiqa.onrender.com/transactions/?sort=${sortBy}`);
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
@@ -122,14 +122,14 @@ document.getElementById("sort-transactions").addEventListener("change", sortTran
 
 // Función asincrónica para actualizar el balance mostrado en la pantalla
 async function updateBalanceDisplay() {
-    const response = await fetch("http://127.0.0.1:8000/balance/");
+    const response = await fetch("https://quantiqa.onrender.com/balance/");
     const {balance} = await response.json(); // Obtiene el balance actual
     document.getElementById("balance-display").textContent = `Balance Actual: $${balance}`; // Actualiza el texto del balance
 }
 
 // Función asincrónica para actualizar el gasto máximo
 async function updateMaxExpense() {
-    const response = await fetch("http://127.0.0.1:8000/max_expense/");
+    const response = await fetch("https://quantiqa.onrender.com/max_expense/");
     const {max_expense, date} = await response.json(); // Obtiene el máximo gasto y la fecha correspondiente
 
     const maxExpenseDisplay = document.getElementById("max-expense-display");
@@ -151,7 +151,7 @@ let myChart; // Variable para el gráfico
 
 // Función para actualizar el gráfico
 async function updateChart() {
-    const response = await fetch("http://127.0.0.1:8000/transactions/");
+    const response = await fetch("https://quantiqa.onrender.com/transactions/");
     const transactions = await response.json(); // Obtiene las transacciones
 
     const labels = transactions.map(transaction => transaction.date); // Crea etiquetas para el eje X
