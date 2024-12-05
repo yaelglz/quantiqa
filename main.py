@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")  # Para montar archivos en la ruta /static
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Simulación de base de datos
 transactions_db = []
@@ -71,13 +71,10 @@ async def add_transaction(transaction: Transaction):
 @app.get("/transactions/", response_model=List[Transaction])
 async def get_transactions(sort: str = "default"):
     if sort == "date":
-        # Ordenar por fecha (asumiendo que la fecha está en formato 'YYYY-MM-DD')
         return sorted(transactions_db, key=lambda x: x.date)
     elif sort == "amount":
-        # Ordenar por monto
         return sorted(transactions_db, key=lambda x: x.amount)
     else:
-        # Por defecto: devolver en el orden original
         return transactions_db
 
 
@@ -109,8 +106,8 @@ async def calculate_investment(data: dict):
     """
     Calcula el rendimiento para CETES, Nu y Mercado Pago.
     """
-    amount = data.get("amount", 0)  # Cantidad inicial
-    days = data.get("days", 0)     # Tiempo en días
+    amount = data.get("amount", 0)
+    days = data.get("days", 0)
 
     if amount <= 0 or days <= 0:
         return {"error": "Cantidad y días deben ser mayores a 0"}
@@ -121,12 +118,12 @@ async def calculate_investment(data: dict):
     mp_rate = 0.15  # Mercado Pago
 
     # CETES
-    cetes_rate = cetes_rates.get(days, 0.1096)  # Tasa por defecto para CETES
+    cetes_rate = cetes_rates.get(days, 0.1096)
     cetes_years = days / 365
     cetes_gain = amount * pow(1 + cetes_rate, cetes_years) - amount
 
     # Nu
-    nu_rate = nu_rates.get(days, 0.09)  # Tasa por defecto para Nu
+    nu_rate = nu_rates.get(days, 0.09)
     nu_years = days / 365
     nu_gain = amount * pow(1 + nu_rate, nu_years) - amount
 
@@ -134,7 +131,6 @@ async def calculate_investment(data: dict):
     mp_years = days / 365
     mp_gain = amount * pow(1 + mp_rate, mp_years) - amount
 
-    # Respuesta con los cálculos
     return {
         "cetes": {"gain": cetes_gain, "total": cetes_gain + amount},
         "nu": {"gain": nu_gain, "total": nu_gain + amount},
@@ -145,3 +141,17 @@ async def calculate_investment(data: dict):
 async def read_calculadoras():
     with open("templates/calculadoras.html") as f:
         return f.read()
+
+@app.post("/reset/")
+async def reset_data():
+    global transactions_db, current_balance, max_expense, max_expense_date
+
+    # Reiniciar los datos
+    transactions_db = []
+    current_balance = 0
+    max_expense = 0
+    max_expense_date = ""
+
+    return {"message": "Datos reiniciados con éxito"}
+
+
