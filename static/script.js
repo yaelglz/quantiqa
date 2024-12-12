@@ -11,7 +11,7 @@ async function setInitialBalance() {
         }
 
         localStorage.setItem('balance', balance);
-        const response = await fetch("http://localhost:8000/initial_balance/", {
+        const response = await fetch("http://quantiqa.live/initial_balance/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -57,7 +57,7 @@ async function addTransaction() {
         localStorage.setItem('balance', balance);
 
 
-        const response = await fetch("http://localhost:8000/transactions/", {
+        const response = await fetch("http://quantiqa.live/transactions/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -84,7 +84,7 @@ async function updateBalanceDisplay() {
     let balance = localStorage.getItem('balance');
 
     if (!balance) {
-        const response = await fetch("http://localhost:8000/balance/");
+        const response = await fetch("http://quantiqa.live/balance/");
         const data = await response.json();
         balance = data.balance;
 
@@ -99,7 +99,7 @@ async function getTransactions(sortBy = "default") {
     let transactions = JSON.parse(localStorage.getItem('transactions'));
 
     if (!transactions) {
-        const response = await fetch(`http://localhost:8000/transactions/?sort=${sortBy}`);
+        const response = await fetch(`http://quantiqa.live/transactions/?sort=${sortBy}`);
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
@@ -116,7 +116,7 @@ async function getTransactions(sortBy = "default") {
 }
 
 async function updateMaxExpense() {
-    const response = await fetch("http://localhost:8000/max_expense/");
+    const response = await fetch("http://quantiqa.live/max_expense/");
     const {max_expense, date} = await response.json();
 
     const maxExpenseDisplay = document.getElementById("max-expense-display");
@@ -156,7 +156,7 @@ async function updateChart() {
     let transactions = JSON.parse(localStorage.getItem('transactions'));
 
     if (!transactions) {
-        const response = await fetch("http://127.0.0.1:8000/transactions/");
+        const response = await fetch("http://quantiqa.live/transactions/");
         transactions = await response.json();
         localStorage.setItem('transactions', JSON.stringify(transactions));
     }
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Función para reiniciar la aplicación
 async function resetApp() {
     localStorage.clear();
-    const response = await fetch("http://127.0.0.1:8000/reset/", {
+    const response = await fetch("http://quantiqa.live/reset/", {
         method: "POST",
     });
     if (response.ok) {
