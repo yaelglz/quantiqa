@@ -1,53 +1,63 @@
-/* Aplicar la fuente Montserrat a toda la aplicación */
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: black; /* Fondo negro para toda la página */
-    color: white; /* Texto blanco para un buen contraste */
+    background-color: black;
+    color: white;
+    padding-top: 56px !important;
 }
 
-/* Barra de navegación en negro con texto blanco */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.row {
+    margin: 0;
+}
+
 .navbar {
-    background-color: black; /* Fondo negro para la navbar */
-    color: white; /* Texto blanco */
+    background-color: black;
+    color: white;
 }
 
 .navbar .navbar-brand, .navbar .nav-link {
-    color: white !important; /* Asegura que los links y la marca tengan texto blanco */
+    color: white !important;
 }
 
 .navbar .navbar-brand:hover, .navbar .nav-link:hover {
-    color: mediumpurple !important; /* Efecto hover con color morado */
+    color: mediumpurple !important;
 }
 
-/* Mantener el espaciado interno de la sección */
 .container {
     padding: 20px 0;
 }
 
-/* Estilo del home-background */
 .home-background {
-    background-color: rgba(33, 33, 33, 0.85); /* Fondo oscuro con transparencia */
+    background-color: rgba(33, 33, 33, 0.85);
 }
 
-/* Resaltado de texto */
 .highlight {
     font-size: 3rem;
     text-decoration: underline;
-    text-decoration-color: white; /* Subrayado blanco */
+    text-decoration-color: white;
     text-underline-offset: 10px;
     color: white;
     font-weight: bold;
 }
 
 .highlight:hover {
-    color: mediumpurple; /* Hover morado */
+    color: mediumpurple;
     text-decoration-color: white;
 }
 
-/* Descripción de texto */
 .description {
     font-size: 1.5rem;
-    color: #d3d3d3; /* Gris claro para las descripciones */
+    color: #d3d3d3;
     font-weight: lighter;
     line-height: 1.6;
     margin-top: 20px;
@@ -55,7 +65,6 @@ body {
     text-align: left;
 }
 
-/* Resaltado con fondo blanco */
 .highlight-black {
     background-color: white;
     color: black;
@@ -63,12 +72,11 @@ body {
     border-radius: 3px;
 }
 
-/* Botón principal */
 .custom-btn {
     background-color: black;
     font-size: 1.3rem;
     color: white;
-    border: 1px solid white; /* Borde blanco */
+    border: 1px solid white;
     border-radius: 0;
     padding: 10px 20px;
     box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
@@ -80,12 +88,11 @@ body {
     color: black;
 }
 
-/* Botón pequeño */
 .custom-btn-small {
     background-color: black;
     font-size: 1.1rem;
     color: white;
-    border: 1px solid white; /* Borde blanco */
+    border: 1px solid white;
     border-radius: 0;
     padding: 5px 10px;
     box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
@@ -99,23 +106,21 @@ body {
 
 .card-title {
     margin-bottom: 10px;
-    color: white; /* Texto blanco para las card titles */
+    color: white;
 }
 
-/* Lista de transacciones */
 .list-group-item {
     display: flex;
-    justify-content: space-between; /* Alinear contenido a la izquierda y derecha */
+    justify-content: space-between;
     background-color: black;
     color: white;
 }
 
-/* Estilo de las cards con fondo oscuro */
 .card {
-    background-color: #333; /* Fondo gris oscuro para las cards */
+    background-color: #333;
     color: white;
-    border: 1px solid #555; /* Bordes discretos en gris */
-    margin-bottom: 20px; /* Espaciado entre las cards */
+    border: 1px solid #555;
+    margin-bottom: 20px;
 }
 
 .card-body {
@@ -124,7 +129,7 @@ body {
 
 .card-title {
     font-size: 1.5rem;
-    color: white; /* Color blanco para los títulos de las cards */
+    color: white;
 }
 
 .card table {
@@ -133,72 +138,133 @@ body {
 
 .card table th, .card table td {
     color: #000000;
-    border-bottom: 1px solid #444; /* Bordes sutiles */
+    border-bottom: 1px solid #444;
     background-color: #ffffff;
 
 }
 
-/* Estilo responsive */
 @media (max-width: 600px) {
     #initial-balance-form,
     #transaction-form {
-        width: 100%; /* Ancho total en pantallas pequeñas */
+        width: 100%;
     }
 }
 
-
-/* Efecto de flotado para la imagen */
 .floating-image {
-    position: relative; /* Relativo para poder manipular la posición */
-    z-index: 1; /* Asegura que la imagen esté sobre los demás elementos */
-    animation: levitating 3s ease-in-out infinite; /* Animación de flotación */
+    position: relative;
+    z-index: 1;
+    animation: levitating 3s ease-in-out infinite;
 }
 
-/* Definir la animación de levitación */
 @keyframes levitating {
     0% {
-        transform: translateY(0); /* Al principio, en su posición original */
+        transform: translateY(0);
     }
     50% {
-        transform: translateY(-15px); /* Se eleva un poco */
+        transform: translateY(-15px);
     }
     100% {
-        transform: translateY(0); /* Regresa a su posición original */
+        transform: translateY(0);
     }
 }
 
-/* Estilo para el botón del acordeón (pregunta) cuando está activo */
 .accordion-button:not(.collapsed) {
-    background-color: #444; /* Fondo gris oscuro para el botón activo */
-    color: white; /* Texto blanco */
-    border-color: #555; /* Borde gris oscuro */
+    background-color: #444;
+    color: white;
+    border-color: #555;
 }
 
-/* Estilo para el botón del acordeón cuando no está activo (cerrado) */
 .accordion-button {
-    background-color: black; /* Fondo negro para el botón cerrado */
-    color: white; /* Texto blanco */
-    border-color: #555; /* Borde gris */
+    background-color: black;
+    color: white;
+    border-color: #555;
 }
 
-/* Efecto hover para el botón del acordeón */
 .accordion-button:hover {
-    background-color: #555; /* Fondo gris medio al pasar el mouse */
-    color: white; /* Texto blanco */
+    background-color: #555;
+    color: white;
 }
 
-/* Estilo para el contenido del acordeón */
 .accordion-body {
-    background-color: black; /* Fondo oscuro para las respuestas */
-    color: #d3d3d3; /* Texto gris claro */
+    background-color: black;
+    color: #d3d3d3;
 }
 
 #rotating-image {
-    width: 200%; /* Ajusta el ancho de la imagen (porcentaje o en px) */
-    max-width: 800px; /* Tamaño máximo */
-    height: auto; /* Mantiene la proporción */
-    transition: opacity 0.5s ease-in-out; /* Transición suave */
+    width: 200%;
+    max-width: 800px;
+    height: auto;
+    transition: opacity 0.5s ease-in-out;
+    margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+    #rotating-image {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
 
+.footer {
+    background-color: #2c2c2c;
+    color: #fff;
+    padding: 20px 0;
+}
 
+.footer .footer-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: mediumpurple;
+    margin-bottom: 20px;
+}
+
+.footer .footer-link {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer .footer-link:hover {
+    color: mediumpurple;
+}
+
+.footer .footer-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 10px;
+}
+
+.footer .container {
+    max-width: 1140px;
+}
+
+.footer .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer .col-md-4 {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .footer .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer .col-md-4 {
+        margin-bottom: 20px;
+    }
+
+    .footer .footer-title {
+        text-align: center;
+    }
+
+    .footer .footer-text {
+        text-align: center;
+    }
+}

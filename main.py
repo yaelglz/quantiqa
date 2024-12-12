@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -7,6 +7,8 @@ from typing import List
 from math import pow
 import os
 import uvicorn
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))  # Por defecto usa el puerto 8000 si no está definido
@@ -89,10 +91,9 @@ async def get_max_expense():
 
 
 # Rutas para servir las páginas HTML
-@app.get("/", response_class=HTMLResponse)
-async def read_home(request: Request):
-    with open("templates/index.html") as f:
-        return f.read()
+@app.get("/", response_class=FileResponse)
+async def read_index():
+    return "templates/index.html"
 
 
 @app.get("/app", response_class=HTMLResponse)
@@ -142,6 +143,11 @@ async def read_calculadoras():
     with open("templates/calculadoras.html") as f:
         return f.read()
 
+@app.get("/acerca.html", response_class=HTMLResponse)
+async def read_acerca():
+    with open("templates/acerca.html") as f:
+        return f.read()
+
 @app.post("/reset/")
 async def reset_data():
     global transactions_db, current_balance, max_expense, max_expense_date
@@ -154,4 +160,84 @@ async def reset_data():
 
     return {"message": "Datos reiniciados con éxito"}
 
+# Ruta para generar y descargar el reporte en PDF
+@app.get("/generate_report/", response_class=FileResponse)
+async def generate_report():
+    from reportlab.lib.pagesizes import letter
+    from reportlab.lib import colors
+    from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, Paragraph
+    from reportlab.lib.styles import getSampleStyleSheet
+
+    file_name = "quantiqa_report.pdf"
+    doc = SimpleDocTemplate(file_name, pagesize=letter)
+
+    elements = []
+    styles = getSampleStyleSheet()
+    title_style = styles["Heading1"]
+    title_style.alignment = 1
+
+    title = Paragraph("QUANTIQA - Reporte de Transacciones", title_style)
+    elements.append(title)
+
+    ingresos = [
+        ["Fecha", "Monto", "Descripción"]
+    ] + sorted(
+        [
+            [t.date, f"${t.amount:.2f}", t.description]
+            for t in transactions_db
+            if t.transaction_type == "ingreso"
+        ],
+        key=lambda x: x[0],
+        reverse=True,
+    )
+    gastos = [
+        ["Fecha", "Monto", "Descripción"]
+    ] + sorted(
+        [
+            [t.date, f"${t.amount:.2f}", t.description]
+            for t in transactions_db
+            if t.transaction_type == "gasto"
+        ],
+        key=lambda x: x[0],
+        reverse=True,
+    )
+
+    # Crear tabla de ingresos
+    elements.append(Paragraph("Ingresos", styles["Heading2"]))
+    table_ingresos = Table(ingresos)
+    table_ingresos.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("BACKGROUND", (0, 1), (-1, -1), colors.beige),
+            ]
+        )
+    )
+    elements.append(table_ingresos)
+
+    elements.append(Paragraph("<br/><br/>", styles["Normal"]))
+
+    elements.append(Paragraph("Gastos", styles["Heading2"]))
+    table_gastos = Table(gastos)
+    table_gastos.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("BACKGROUND", (0, 1), (-1, -1), colors.pink),
+            ]
+        )
+    )
+    elements.append(table_gastos)
+
+    doc.build(elements)
+
+    return FileResponse(file_name, media_type="application/pdf", filename="Reporte_QUANTIQA.pdf")
 

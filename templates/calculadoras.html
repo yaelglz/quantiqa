@@ -6,6 +6,7 @@
   <title>Calculadora de Inversiones</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" />
   <style>
     .card-container {
       display: flex;
@@ -17,22 +18,22 @@
     .card {
       width: 400px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      background-color: rgba(33, 33, 33, 0.85); /* Fondo oscuro */
-      color: #fff; /* Texto blanco */
-      border-radius: 8px; /* Bordes redondeados */
+      background-color: rgba(33, 33, 33, 0.85);
+      color: #fff;
+      border-radius: 8px;
     }
 
     .card table {
       width: 100%;
       border-collapse: collapse;
-      background-color: rgba(33, 33, 33, 0.85); /* Asegurar fondo oscuro */
+      background-color: rgba(33, 33, 33, 0.85);
     }
 
     .card table th, .card table td {
       text-align: center;
       padding: 8px;
       color: #fff; /* Texto blanco */
-      border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil para las celdas */
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .card table th {
@@ -55,11 +56,11 @@
     .card-title {
       font-size: 1.25rem;
       margin-bottom: 15px;
-      color: #fff; /* Blanco para el título */
+      color: #fff;
     }
 
     .card-body p {
-      color: #fff; /* Texto blanco para las descripciones */
+      color: #fff;
     }
 
     .generated-row {
@@ -79,13 +80,13 @@
     }
 
     .custom-btn {
-      background-color: #FF7F50; /* Color coral */
+      background-color: #FF7F50;
       color: #fff;
       border: none;
     }
 
     .custom-btn:hover {
-      background-color: #FF6347; /* Color más oscuro para hover */
+      background-color: #FF6347;
     }
 
     hr.my-5 {
@@ -97,7 +98,7 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg custom-navbar">
+<nav class="navbar navbar-expand-lg custom-navbar fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Quantiqa</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -113,24 +114,25 @@
                     <a class="nav-link" href="/calculadoras.html">Calculadoras</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#faq">FAQ</a>
+                        <a class="nav-link" href="/acerca.html">Acerca de Nosotros</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#faq">FAQ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contacto</a>
+                    <a class="nav-link" href="/#contact">Contacto</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Contenido principal -->
 <div class="container mt-5">
   <h2 class="text-center mb-4">Bienvenido a la Calculadora de Inversiones</h2>
   <p class="text-center mb-5">
     Con esta herramienta puedes calcular la rentabilidad de diversas opciones de inversión en México, incluyendo CETES, Nu y Mercado Pago. Solo ingresa la cantidad que deseas invertir y te proporcionaremos un desglose con el interés y las ganancias.
   </p>
 
-  <!-- Formulario de inversión -->
   <div class="row mb-4">
     <div class="col-md-6 offset-md-3">
       <label for="investmentAmount" class="form-label">Cantidad a Invertir (MXN)</label>
@@ -140,7 +142,6 @@
 
   <button id="calculateButton" class="btn custom-btn mb-4 d-block mx-auto">Calcular</button>
 
-  <!-- Resultados de las inversiones -->
   <div class="card-container">
     <div class="card">
       <div class="card-body">
@@ -193,6 +194,34 @@
       </div>
     </div>
   </div>
+</div>
+<footer class="footer text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5 class="footer-title">Sobre Quantiqa</h5>
+                <p>Una plataforma innovadora para gestionar tus finanzas personales de manera sencilla y eficiente.</p>
+            </div>
+            <div class="col-md-4">
+                <h5 class="footer-title">Enlaces Rápidos</h5>
+                <ul class="list-unstyled">
+                    <li><a href="/app" class="footer-link">Aplicación</a></li>
+                    <li><a href="/calculadoras.html" class="footer-link">Calculadoras</a></li>
+                    <li><a href="/acerca.html" class="footer-link">Acerca de Nosotros</a></li>
+                    <li><a href="/#faq" class="footer-link">FAQ</a></li>
+                    <li><a href="/#contact" class="footer-link">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5 class="footer-title">Contacto</h5>
+                <p>Para más información o dudas, puedes ponerte en contacto con nosotros a través del formulario en la sección "Contacto".</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="footer-text">© 2024 Quantiqa. Todos los derechos reservados.</p>
+    </div>
+</footer>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -215,45 +244,38 @@
         return;
       }
 
-      // Limpiar resultados previos
       cetesResults.innerHTML = "";
       nuResults.innerHTML = "";
       mercadoPagoResults.innerHTML = "";
 
-      // Tasas de interés
       const rates = {
       cetes: { 28: 10.96, 91: 11.40, 182: 12.07, 364: 12.09 },
       nu: { 7: 12.50, 28: 12.87, 90: 14.25, 180: 12.36 },
       mercadoPago: 15.00
     };
 
-      // Mostrar tasas de interés
       cetesRate.textContent = "10.96% - 12.09";
       nuRate.textContent = "12.50% - 14.25";
       mercadoPagoRate.textContent = rates.mercadoPago.toFixed(2);
 
-      // Resultados CETES
       Object.keys(rates.cetes).forEach(days => {
         const annualRate = rates.cetes[days];
         const gain = calculateGain(amount, annualRate, days);
         addRow(cetesResults, `${days} días`, annualRate.toFixed(2), gain, amount + gain);
       });
 
-      // Resultados Nu
       Object.keys(rates.nu).forEach(days => {
         const annualRate = rates.nu[days];
         const gain = calculateGain(amount, annualRate, days);
         addRow(nuResults, `${days} días`, annualRate.toFixed(2), gain, amount + gain);
       });
 
-      // Resultados Mercado Pago
       [30, 180, 365].forEach(days => {
         const annualRate = rates.mercadoPago;
         const gain = calculateGain(amount, annualRate, days);
         addRow(mercadoPagoResults, `${days} días`, null, gain, amount + gain);
       });
 
-      // Activar animación
       setTimeout(() => {
         document.querySelectorAll('.generated-row').forEach(row => row.classList.add('visible'));
       }, 50);
@@ -266,7 +288,7 @@
 
     function addRow(tableBody, term, rate, gain, total) {
       const row = document.createElement("tr");
-      row.classList.add("generated-row"); // Agregar clase específica
+      row.classList.add("generated-row");
       if (rate !== null) {
         row.innerHTML = `
           <td>${term}</td>
@@ -286,7 +308,6 @@
   });
 </script>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
