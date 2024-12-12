@@ -21,7 +21,6 @@ distro~=1.9.0
 wheel~=0.43.0
 pysocks~=1.7.1
 protobuf~=3.20.3
-openssl~=3.0.15
 pyopenssl~=24.0.0
 pillow~=10.3.0
 docutils~=0.18.1
