@@ -9,15 +9,17 @@ document.getElementById('calcular').addEventListener('click', async () => {
         return;
     }
 
-    const response = await fetch('/calculate_salary/', {
+    // Calcular salario
+    const calcResponse = await fetch('/calculate_salary/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ salarioBase, horasExtras, pagoHoraExtra, deducciones }),
     });
 
-    const data = await response.json();
-    if (response.ok) {
+    if (calcResponse.ok) {
+        const data = await calcResponse.json();
         const totalHorasExtras = horasExtras * pagoHoraExtra;
+
         document.getElementById('resSalarioBase').textContent = `$${salarioBase.toFixed(2)}`;
         document.getElementById('resHorasExtras').textContent = `$${totalHorasExtras.toFixed(2)}`;
         document.getElementById('resDeducciones').textContent = `$${deducciones.toFixed(2)}`;
@@ -26,18 +28,30 @@ document.getElementById('calcular').addEventListener('click', async () => {
         document.getElementById('resultado').classList.remove('hidden');
     } else {
         alert('Error al calcular el salario.');
+        return;
     }
 
-    if (response.ok) {
-        const blob = await response.blob();
+    // Descargar PDF
+    const pdfResponse = await fetch('/download_pdf/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ salarioBase, horasExtras, pagoHoraExtra, deducciones }),
+    });
+
+    if (pdfResponse.ok) {
+        const blob = await pdfResponse.blob();
         const url = window.URL.createObjectURL(blob);
+
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'nomina_report.pdf';
+        a.download = 'nomina_report.pdf'; // Nombre del archivo
         document.body.appendChild(a);
         a.click();
         a.remove();
+
+        window.URL.revokeObjectURL(url); // Liberar memoria
     } else {
         alert('Error al generar el PDF.');
     }
 });
+
