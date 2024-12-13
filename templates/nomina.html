@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantiqa - Cálculo de Nómina</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" />
+</head>
+<body>
+<nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Quantiqa</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/app">Aplicación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/calculadoras.html">Calculadoras</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nomina.html">Nomina</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/acerca.html">Acerca de Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#faq">FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#contact">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5 pt-5">
+    <header class="text-center my-4">
+        <h1 class="highlight">Cálculo de Nómina Profesional</h1>
+        <p class="description">Calcula fácilmente el salario neto de tus empleados</p>
+    </header>
+    <main class="container">
+        <form id="nominaForm" class="p-4 border rounded shadow">
+            <div class="mb-3">
+                <label for="salarioBase" class="form-label">Salario Base ($):</label>
+                <input type="number" class="form-control" id="salarioBase" placeholder="Ej. 50000" required>
+            </div>
+            <div class="mb-3">
+                <label for="horasExtras" class="form-label">Horas Extras:</label>
+                <input type="number" class="form-control" id="horasExtras" placeholder="Ej. 10" required>
+            </div>
+            <div class="mb-3">
+                <label for="pagoHoraExtra" class="form-label">Pago por Hora Extra ($):</label>
+                <input type="number" class="form-control" id="pagoHoraExtra" placeholder="Ej. 200" required>
+            </div>
+            <div class="mb-3">
+                <label for="deducciones" class="form-label">Deducciones ($):</label>
+                <input type="number" class="form-control" id="deducciones" placeholder="Ej. 5000" required>
+            </div>
+            <button type="button" id="calcular" class="btn custom-btn w-100">Calcular Nómina</button>
+        </form>
+        <div id="resultado" class="hidden mt-4">
+            <h2 class="highlight">Resultado del Cálculo</h2>
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Salario Base</td>
+                        <td id="resSalarioBase"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Horas Extras</td>
+                        <td id="resHorasExtras"></td>
+                    </tr>
+                    <tr>
+                        <td>Deducciones</td>
+                        <td id="resDeducciones"></td>
+                    </tr>
+                    <tr class="table-primary">
+                        <td>Salario Neto</td>
+                        <td id="resSalarioNeto"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<footer class="footer text-center mt-5">
+    <div class="container">
+        <p>Quantiqa - Simplificando tus finanzas. &copy; 2024</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/nomina.js"></script>
+</body>
+</html>

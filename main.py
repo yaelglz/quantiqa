@@ -143,6 +143,27 @@ async def read_calculadoras():
     with open("templates/calculadoras.html") as f:
         return f.read()
 
+@app.get("/nomina.html", response_class=HTMLResponse)
+async def read_nomina():
+    with open("templates/nomina.html") as f:
+        return f.read()
+
+@app.post("/calculate_salary/")
+async def calculate_salary(data: dict):
+    salario_base = data.get("salarioBase", 0)
+    horas_extras = data.get("horasExtras", 0)
+    pago_hora_extra = data.get("pagoHoraExtra", 0)
+    deducciones = data.get("deducciones", 0)
+
+    if any(x <= 0 for x in [salario_base, horas_extras, pago_hora_extra, deducciones]):
+        return {"error": "Todos los valores deben ser mayores a 0"}
+
+    total_horas_extras = horas_extras * pago_hora_extra
+    salario_neto = salario_base + total_horas_extras - deducciones
+
+    return {"salarioNeto": salario_neto}
+
+
 @app.get("/acerca.html", response_class=HTMLResponse)
 async def read_acerca():
     with open("templates/acerca.html") as f:
