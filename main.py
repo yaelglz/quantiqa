@@ -161,8 +161,41 @@ async def calculate_salary(data: dict):
     total_horas_extras = horas_extras * pago_hora_extra
     salario_neto = salario_base + total_horas_extras - deducciones
 
-    return {"salarioNeto": salario_neto}
+    return {
+        "salarioBase": salario_base,
+        "totalHorasExtras": total_horas_extras,
+        "deducciones": deducciones,
+        "salarioNeto": salario_neto
+    }
 
+@app.post("/download_pdf/")
+async def download_pdf(data: dict):
+    salario_base = data.get("salarioBase", 0)
+    horas_extras = data.get("horasExtras", 0)
+    pago_hora_extra = data.get("pagoHoraExtra", 0)
+    deducciones = data.get("deducciones", 0)
+    salario_neto = salario_base + (horas_extras * pago_hora_extra) - deducciones
+
+    # Crear el archivo PDF
+    pdf_path = "nomina_report.pdf"
+    c = canvas.Canvas(pdf_path, pagesize=letter)
+    c.setFont("Helvetica", 12)
+
+    # Título
+    c.drawString(100, 750, "Reporte de Cálculo de Nómina")
+    c.line(100, 745, 500, 745)
+
+    # Información detallada
+    c.drawString(100, 720, f"Salario Base: ${salario_base:.2f}")
+    c.drawString(100, 700, f"Horas Extras: {horas_extras} x ${pago_hora_extra:.2f} = ${horas_extras * pago_hora_extra:.2f}")
+    c.drawString(100, 680, f"Deducciones: ${deducciones:.2f}")
+    c.drawString(100, 660, f"Salario Neto: ${salario_neto:.2f}")
+
+    # Guardar y cerrar el archivo PDF
+    c.save()
+
+    # Retornar el archivo como respuesta
+    return FileResponse(pdf_path, filename="nomina_report.pdf", media_type="application/pdf")
 
 @app.get("/acerca.html", response_class=HTMLResponse)
 async def read_acerca():

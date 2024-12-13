@@ -9,7 +9,7 @@ document.getElementById('calcular').addEventListener('click', async () => {
         return;
     }
 
-    const response = await fetch('/calculate_salary', {
+    const response = await fetch('/calculate_salary/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ salarioBase, horasExtras, pagoHoraExtra, deducciones }),
@@ -17,9 +17,27 @@ document.getElementById('calcular').addEventListener('click', async () => {
 
     const data = await response.json();
     if (response.ok) {
-        // Mostrar resultados en el HTML
+        const totalHorasExtras = horasExtras * pagoHoraExtra;
+        document.getElementById('resSalarioBase').textContent = `$${salarioBase.toFixed(2)}`;
+        document.getElementById('resHorasExtras').textContent = `$${totalHorasExtras.toFixed(2)}`;
+        document.getElementById('resDeducciones').textContent = `$${deducciones.toFixed(2)}`;
         document.getElementById('resSalarioNeto').textContent = `$${data.salarioNeto.toFixed(2)}`;
+
+        document.getElementById('resultado').classList.remove('hidden');
     } else {
         alert('Error al calcular el salario.');
+    }
+
+    if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'nomina_report.pdf';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    } else {
+        alert('Error al generar el PDF.');
     }
 });
