@@ -255,3 +255,19 @@ async function resetApp() {
 }
 document.getElementById("reset-button").addEventListener("click", resetApp);
 
+const tips = [
+            "Compra Inteligente: Prioriza productos duraderos y de calidad sobre compras impulsivas. Evalúa el valor real y la sostenibilidad de cada compra antes de realizarla.",
+            "Invierte con Propósito: Selecciona inversiones en empresas y fondos que generen impacto positivo ambiental y social, no solo rentabilidad económica.",
+            "Presupuesto Eco-Friendly: Incluye en tu presupuesto gastos que reduzcan tu huella de carbono: transporte público, productos locales, energía renovable.",
+            "Ahorro Energético: Reduce gastos y consumo energético mediante electrodomésticos eficientes, iluminación LED y prácticas de conservación de energía.",
+            "Finanzas Circulares: Apoya emprendimientos de economía circular. Repara, reutiliza y recicla en lugar de desechar y comprar nuevo constantemente.",
+            "Consumo Responsable: Distingue entre necesidades reales y deseos momentáneos. Compra solo lo esencial y de manera consciente.",
+            "Movilidad Sostenible: Opta por transporte público, bicicleta o vehículos eléctricos. Reduce gastos de combustible y mantenimiento.",
+            "Alimentación Consciente: Consume alimentos locales, de temporada y con menor impacto ambiental. Reduce desperdicios y gastos innecesarios.",
+            "Donaciones Estratégicas: Destina parte de tus recursos a proyectos comunitarios o ambientales. Genera impacto positivo mientras optimizas tu presupuesto.",
+            "Educación Financiera: Mantente informado sobre prácticas financieras sostenibles. El conocimiento es la mejor inversión para tomar decisiones responsables."
+        ];
+
+const randomTip = tips[Math.floor(Math.random() * tips.length)];
+
+document.getElementById('random-tip').innerText = randomTip;

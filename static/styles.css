@@ -268,3 +268,11 @@ body {
         text-align: center;
     }
 }
+
+#random-tip {
+            margin-top: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            color: #555;
+        }
